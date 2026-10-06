@@ -1,0 +1,10 @@
+{
+  "name": "PramaanID — AI Identity & Document Verification Portal",
+  "description": "Government-grade AI sovereign identity verification and document fraud intelligence system with zero-trust privacy, role-based access control, cryptographic audit trails, and AES-256 vault.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
