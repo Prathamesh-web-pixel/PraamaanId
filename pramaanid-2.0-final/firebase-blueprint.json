@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered citizen or sovereign officer profile",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["CITIZEN", "VERIFIER", "OFFICER", "ADMIN", "SUPER_ADMIN"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "email", "fullName", "role"]
+    },
+    "VerificationRecord": {
+      "title": "VerificationRecord",
+      "description": "Sovereign identity document verification record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "documentType": { "type": "string", "enum": ["AADHAAR", "PAN", "PASSPORT", "VOTER_ID", "DRIVING_LICENCE"] },
+        "maskedDocumentNumber": { "type": "string" },
+        "fullName": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING_REVIEW", "VERIFIED", "FLAGGED_TAMPERED", "REJECTED"] },
+        "riskLevel": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+        "confidenceScore": { "type": "number" },
+        "cryptographicSeal": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "documentType", "status", "riskLevel"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile records"
+    },
+    "/verifications/{verificationId}": {
+      "schema": "VerificationRecord",
+      "description": "Verified identity records"
+    }
+  }
+}
