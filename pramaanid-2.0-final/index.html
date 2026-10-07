@@ -1,28 +1,56 @@
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
-import { defineConfig } from "vite";
-
-export default defineConfig(() => {
-  return {
-    plugins: [react(), tailwindcss()],
-    resolve: { alias: { "@": path.resolve(__dirname, ".") } },
-    build: {
-      outDir: "dist",
-      sourcemap: false,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            react: ["react", "react-dom"],
-            firebase: ["firebase/app", "firebase/auth", "firebase/firestore"],
-          },
-        },
-      },
-    },
-    server: {
-      port: 3000,
-      hmr: true,
-      proxy: { "/api": { target: "http://localhost:3001", changeOrigin: true } },
-    },
-  };
-});
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PramaanID — AI Identity &amp; Document Verification Portal</title>
+    <meta name="description" content="Government-grade AI sovereign identity verification and document fraud intelligence system with zero-trust privacy, role-based access control, cryptographic audit trails, and AES-256 vault." />
+    <meta name="keywords" content="identity verification, document verification, AI fraud detection, government portal, digital identity, PramaanID" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://doccheckai.vercel.app/" />
+    <meta property="og:title" content="PramaanID — AI Identity &amp; Document Verification Portal" />
+    <meta property="og:description" content="Government-grade AI sovereign identity verification with zero-trust privacy and AES-256 security." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PramaanID — AI Identity &amp; Document Verification Portal" />
+    <meta name="twitter:description" content="Government-grade AI identity verification with zero-trust privacy and AES-256 security." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      #initial-loader { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#F4F6F8; z-index:9999; font-family:'Plus Jakarta Sans',sans-serif; transition:opacity 0.4s ease; }
+      #initial-loader.hidden { opacity:0; pointer-events:none; }
+      .loader-title { font-size:1.6rem; font-weight:700; color:#17212B; margin-bottom:0.25rem; }
+      .loader-sub { font-size:0.85rem; color:#7a8a99; margin-bottom:2rem; }
+      .loader-spin { width:36px; height:36px; border:3px solid #e0e6ed; border-top-color:#E87524; border-radius:50%; animation:spin 0.8s linear infinite; }
+      @keyframes spin { to { transform:rotate(360deg); } }
+    </style>
+  </head>
+  <body class="bg-[#F4F6F8] text-[#17212B] font-sans antialiased selection:bg-[#E87524]/20 selection:text-[#E87524]">
+    <div id="initial-loader" aria-label="Loading PramaanID">
+      <p class="loader-title">PramaanID</p>
+      <p class="loader-sub">AI Identity &amp; Document Verification</p>
+      <div class="loader-spin"></div>
+    </div>
+    <div id="root"></div>
+    <noscript>
+      <style>#initial-loader{display:none!important}</style>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;background:#F4F6F8;text-align:center;padding:2rem;">
+        <h1 style="color:#E87524;font-size:2rem;font-weight:700;">PramaanID</h1>
+        <p style="color:#555;max-width:480px;margin-top:0.5rem;">This application requires JavaScript. Please enable it in your browser and reload.</p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      var obs = new MutationObserver(function() {
+        var r = document.getElementById("root");
+        if (r && r.children.length > 0) {
+          var l = document.getElementById("initial-loader");
+          if (l) { l.classList.add("hidden"); setTimeout(function(){ l.remove(); }, 400); }
+          obs.disconnect();
+        }
+      });
+      obs.observe(document.getElementById("root"), { childList: true });
+    </script>
+  </body>
+</html>
